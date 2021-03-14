@@ -1,73 +1,10 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="shortcut icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <title>Pure JavaScript Excel</title>
-</head>
-<body>
+import {ExcelComponent} from '@core/ExcelComponent'
 
-<div id="app" class="container">
+export class Table extends ExcelComponent {
+  static className = 'excel__table'
 
-  <div class="excel">
-
-    <div class="excel__header">
-
-      <input type="text" class="input" value="Новая таблица" />
-
-      <div>
-
-        <div class="button">
-          <i class="material-icons">delete</i>
-        </div>
-
-        <div class="button">
-          <i class="material-icons">exit_to_app</i>
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="excel__toolbar">
-
-      <div class="button">
-        <i class="material-icons">format_align_left</i>
-      </div>
-
-      <div class="button">
-        <i class="material-icons">format_align_center</i>
-      </div>
-
-      <div class="button">
-        <i class="material-icons">format_align_right</i>
-      </div>
-
-      <div class="button">
-        <i class="material-icons">format_bold</i>
-      </div>
-
-      <div class="button">
-        <i class="material-icons">format_italic</i>
-      </div>
-
-      <div class="button">
-        <i class="material-icons">format_underlined</i>
-      </div>
-
-    </div>
-
-    <div class="excel__formula">
-      <div class="info">fx</div>
-      <div class="input" contenteditable spellcheck="false"></div>
-    </div>
-
-    <div class="excel__table">
-
+  toHTML() {
+    return `
       <div class="row">
 
         <div class="row-info"></div>
@@ -167,7 +104,7 @@
         </div>
 
       </div>
-
+      
       <div class="row">
         <div class="row-info">
           1
@@ -175,8 +112,7 @@
 
         <div class="row-data">
           <div class="cell selected" contenteditable="">A1</div>
-          <div class="cell" contenteditable>B2</div>
-
+          <div class="cell" contenteditable="">B2</div>
           <div class="cell" contenteditable="">C3</div>
         </div>
       </div>
@@ -192,12 +128,6 @@
           <div class="cell">C3</div>
         </div>
       </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-</body>
-</html>
+    `
+  }
+}
