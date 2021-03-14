@@ -17,22 +17,27 @@
     "javascript",
     "excel"
   ],
-  "author": "Ivan Peleshok <peleshok.ivan@gmail.com>",
+  "author": "Vladilen Minin <vladilen.minin@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/IvanPeleshok/excel"
+    "url": "https://github.com/vladilenm/excel-course/issues"
   },
-  "homepage": "https://github.com/IvanPeleshok/excel#readme",
+  "homepage": "https://github.com/vladilenm/excel-course#readme",
   "private": true,
   "browserslist": "> 0.25%, not dead",
   "devDependencies": {
     "@babel/core": "^7.8.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "cross-env": "^7.0.0",
     "css-loader": "^3.4.2",
+    "eslint": "^6.8.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-loader": "^3.0.3",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.1",
@@ -42,6 +47,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.8.3"
+    "@babel/polyfill": "^7.8.3",
+    "normalize.css": "^8.0.1"
   }
 }
