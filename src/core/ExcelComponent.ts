@@ -1,7 +1,8 @@
-import {DomListener} from '@core/DomListener'
+import {DomListener} from './DomListener'
 
 export class ExcelComponent extends DomListener {
-  constructor($root, options = {}) {
+  name: any
+  constructor($root: any, private options: any = {}) {
     super($root, options.listeners)
     this.name = options.name || ''
   }

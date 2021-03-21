@@ -1,5 +1,5 @@
 // Pure functions
-export function capitalize(string) {
+export function capitalize(string: any) {
   if (typeof string !== 'string') {
     return ''
   }

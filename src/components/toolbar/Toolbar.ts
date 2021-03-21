@@ -1,9 +1,9 @@
-import {ExcelComponent} from '@core/ExcelComponent'
+import {ExcelComponent} from '../../core/ExcelComponent'
 
 export class Toolbar extends ExcelComponent {
   static className = 'excel__toolbar'
 
-  constructor($root) {
+  constructor($root: any) {
     super($root, {
       name: 'Toolbar',
       listeners: ['click']
@@ -38,7 +38,7 @@ export class Toolbar extends ExcelComponent {
     `
   }
 
-  onClick(event) {
+  onClick(event: any) {
     console.log(event.target)
   }
 }

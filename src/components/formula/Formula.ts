@@ -1,9 +1,9 @@
-import {ExcelComponent} from '@core/ExcelComponent'
+import {ExcelComponent} from '../../core/ExcelComponent'
 
 export class Formula extends ExcelComponent {
   static className = 'excel__formula'
 
-  constructor($root) {
+  constructor($root: any) {
     super($root, {
       name: 'Formula',
       listeners: ['input', 'click']
@@ -17,7 +17,7 @@ export class Formula extends ExcelComponent {
     `
   }
 
-  onInput(event) {
+  onInput(event: any) {
     console.log(this.$root)
     console.log('Formula: onInput', event.target.textContent.trim())
   }

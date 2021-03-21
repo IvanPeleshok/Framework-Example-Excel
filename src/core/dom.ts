@@ -1,11 +1,12 @@
 class Dom {
-  constructor(selector) {
+  $el: any
+  constructor(selector: any) {
     this.$el = typeof selector === 'string'
       ? document.querySelector(selector)
       : selector
   }
 
-  html(html) {
+  html(html: any) {
     if (typeof html === 'string') {
       this.$el.innerHTML = html
       return this
@@ -18,20 +19,20 @@ class Dom {
     return this
   }
 
-  on(eventType, callback) {
+  on(eventType: any, callback: any) {
     this.$el.addEventListener(eventType, callback)
   }
 
-  off(eventType, callback) {
+  off(eventType: any, callback: any) {
     this.$el.removeEventListener(eventType, callback)
   }
 
-  append(node) {
+  append(node: any) {
     if (node instanceof Dom) {
       node = node.$el
     }
 
-    if (Element.prototype.append) {
+    if ((Element as any).prototype.append) {
       this.$el.append(node)
     } else {
       this.$el.appendChild(node)
@@ -42,11 +43,11 @@ class Dom {
 }
 
 // event.target
-export function $(selector) {
+export function $(selector: any) {
   return new Dom(selector)
 }
 
-$.create = (tagName, classes = '') => {
+$.create = (tagName: any, classes = '') => {
   const el = document.createElement(tagName)
   if (classes) {
     el.classList.add(classes)
