@@ -1,34 +1,32 @@
-import { $ } from "../../core/dom"
+import { $, Dom } from "../../core/dom";
+import { IOptions, TComponents, TComponent } from "../../interface/interface";
 
 export class Excel {
-  $el: any
-  components: any
-  constructor(selector: any, options: any) {
-    this.$el = $(selector)
-    this.components = options.components || []
+  $el: Dom;
+  components: TComponent[];
+  classComponents: TComponents;
+
+  constructor(selector: string, options: IOptions) {
+    this.$el = $(selector);
+    this.components = options.components || [];
   }
 
   getRoot() {
-    const $root = $.create('div', 'excel')
+    const $root = $.create('div', 'excel');
 
-    this.components = this.components.map((Component: any) => {
-      const $el = $.create('div', Component.className)
-      const component = new Component($el)
-      // DEBUG
-      // if (component.name) {
-      //   window['c' + component.name] = component
-      // }
-      $el.html(component.toHTML())
-      $root.append($el)
-      return component
+    this.classComponents = this.components.map((Component: TComponent) => {
+      const $el = $.create('div', Component.className);
+      const component = new Component($el);
+      $el.html(component.toHTML());
+      $root.append($el);
+      return component;
     })
 
-    return $root
+    return $root;
   }
 
   render() {
-    this.$el.append(this.getRoot())
-
-    this.components.forEach((component: any) => component.init())
+    this.$el.append(this.getRoot());
+    this.classComponents.forEach((component: any) => component.init());
   }
 }

@@ -1,13 +1,14 @@
-import {ExcelComponent} from '../../core/ExcelComponent'
+import { Dom } from "../../core/dom";
+import { ExcelComponent } from "../../core/ExcelComponent"
 
 export class Formula extends ExcelComponent {
-  static className = 'excel__formula'
+  static className = 'excel__formula';
 
-  constructor($root: any) {
+  constructor($root: Dom) {
     super($root, {
       name: 'Formula',
       listeners: ['input', 'click']
-    })
+    });
   }
 
   toHTML() {
@@ -17,12 +18,12 @@ export class Formula extends ExcelComponent {
     `
   }
 
-  onInput(event: any) {
-    console.log(this.$root)
-    console.log('Formula: onInput', event.target.textContent.trim())
+  onInput(event: KeyboardEvent) {
+    console.log(this.$root);
+    console.log('Formula: onInput', (event.target as HTMLElement).textContent.trim());
   }
 
   onClick() {
-    console.log('mk')
+    console.log('mk');
   }
 }

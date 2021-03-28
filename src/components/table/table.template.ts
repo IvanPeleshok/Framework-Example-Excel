@@ -1,7 +1,8 @@
-const CODES = {
-  A: 65,
-  Z: 90
+enum CODES {
+  A = 65,
+  Z = 90
 }
+
 
 function toCell() {
   return `
@@ -9,13 +10,13 @@ function toCell() {
   `
 }
 
-function toColumn(col) {
+function toColumn(col: string) {
   return `
     <div class="column">${col}</div>
   `
 }
 
-function createRow(index, content) {
+function createRow(index: number, content: string) {
   return `
     <div class="row">
       <div class="row-info">${index ? index : ''}</div>
@@ -24,11 +25,11 @@ function createRow(index, content) {
   `
 }
 
-function toChar(_, index) {
+function toChar(_, index: number) {
   return String.fromCharCode(CODES.A + index)
 }
 
-export function createTable(rowsCount = 15) {
+export function createTable(rowsCount: number = 15) {
   const colsCount = CODES.Z - CODES.A + 1
   const rows = []
 

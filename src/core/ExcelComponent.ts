@@ -1,22 +1,25 @@
+import { IOptions } from '../interface/interface'
+import { Dom } from './dom';
 import {DomListener} from './DomListener'
 
 export class ExcelComponent extends DomListener {
-  name: any
-  constructor($root: any, private options: any = {}) {
+  name: string;
+  
+  constructor(public $root: Dom, public options: IOptions = {}) {
     super($root, options.listeners)
-    this.name = options.name || ''
+    this.name = options.name || '';
   }
 
   // Возвращает шаблон компонента
   toHTML() {
-    return ''
+    return '';
   }
 
   init() {
-    this.initDOMListeners()
+    this.initDOMListeners();
   }
 
   destroy() {
-    this.removeDOMListeners()
+    this.removeDOMListeners();
   }
 }

@@ -1,56 +1,56 @@
-class Dom {
-  $el: any
-  constructor(selector: any) {
-    this.$el = typeof selector === 'string'
-      ? document.querySelector(selector)
-      : selector
+
+export class Dom {
+  $el: HTMLElement;
+
+  constructor(selector: string | HTMLElement) {
+    this.$el = typeof selector === 'string' ? document.querySelector(selector) : selector;
   }
 
-  html(html: any) {
-    if (typeof html === 'string') {
-      this.$el.innerHTML = html
-      return this
-    }
-    return this.$el.outerHTML.trim()
+  html(HTML: string): Dom {
+    this.$el.innerHTML = HTML;
+    return this;
   }
 
-  clear() {
-    this.html('')
-    return this
+  clear(): Dom {
+    this.html('');
+    return this;
   }
 
-  on(eventType: any, callback: any) {
-    this.$el.addEventListener(eventType, callback)
+  on(eventType: string, callback: () => void) {
+    this.$el.addEventListener(eventType, callback);
   }
 
-  off(eventType: any, callback: any) {
-    this.$el.removeEventListener(eventType, callback)
+  off(eventType: string, callback: () => void) {
+    this.$el.removeEventListener(eventType, callback);
   }
 
-  append(node: any) {
+  append(node: HTMLElement | Dom): Dom {
+    let nodeHTML: HTMLElement;
+
     if (node instanceof Dom) {
-      node = node.$el
-    }
-
-    if ((Element as any).prototype.append) {
-      this.$el.append(node)
+      nodeHTML = node.$el;
     } else {
-      this.$el.appendChild(node)
+      nodeHTML = node as HTMLElement;
     }
 
-    return this
+    if (Element.prototype.append) {
+      this.$el.append(nodeHTML);
+    } else {
+      this.$el.appendChild(nodeHTML);
+    }
+
+    return this;
   }
 }
 
-// event.target
-export function $(selector: any) {
-  return new Dom(selector)
+export function $(selector: string) {
+  return new Dom(selector);
 }
 
 $.create = (tagName: any, classes = '') => {
-  const el = document.createElement(tagName)
+  const el = document.createElement(tagName);
   if (classes) {
-    el.classList.add(classes)
+    el.classList.add(classes);
   }
-  return $(el)
+  return $(el);
 }
