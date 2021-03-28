@@ -9,39 +9,16 @@ const isDev = !isProd
 
 const filename = ext => isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`
 
-const jsLoaders = () => {
-  const loaders = [
-    {
-      loader: 'babel-loader',
-      options: {
-        presets: ['@babel/preset-env'],
-        plugins: ['@babel/plugin-proposal-class-properties']
-
-      }
-    }
-  ]
-
-  if (isDev) {
-    loaders.push('eslint-loader')
-  }
-
-  return loaders
-}
-
 module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
-  entry: ['@babel/polyfill', './index.js'],
+  entry: ['./index.ts'],
   output: {
     filename: filename('js'),
     path: path.resolve(__dirname, 'dist')
   },
   resolve: {
-    extensions: ['.js'],
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-      '@core': path.resolve(__dirname, 'src/core')
-    }
+    extensions: ['.ts', '.tsx', '.js'],
   },
   devtool: isDev ? 'source-map' : false,
   devServer: {
@@ -83,10 +60,10 @@ module.exports = {
           'sass-loader'
         ],
       },
-      {
-        test: /\.js$/,
+      { 
+        loader: 'awesome-typescript-loader',
+        test: /\.ts$/,
         exclude: /node_modules/,
-        use: jsLoaders()
       }
     ]
   }
