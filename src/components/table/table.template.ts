@@ -4,22 +4,28 @@ enum CODES {
 }
 
 
-function toCell() {
+function toCell(_, index) {
   return `
-    <div class="cell" contenteditable></div>
+    <div class="cell" contenteditable data-column="${index}"></div>
   `
 }
 
-function toColumn(col: string) {
+function toColumn(col: string, index: number ) {
   return `
-    <div class="column">${col}</div>
+    <div class="column" data-type="resizable" data-column="${index}">
+      ${col}
+      <div class="col-resize" data-resize="column" data-border="border"></div>
+    </div>
   `
 }
 
 function createRow(index: number, content: string) {
+  const cell = index ? `${index}<div class="row-resize" data-resize="row" data-border="border"></div>` : ''; 
   return `
-    <div class="row">
-      <div class="row-info">${index ? index : ''}</div>
+    <div class="row" data-type="resizable">
+      <div class="row-info">
+        ${cell}
+      </div>
       <div class="row-data">${content}</div>
     </div>
   `

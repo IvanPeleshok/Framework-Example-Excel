@@ -3,8 +3,6 @@ import { Dom } from './dom';
 import {DomListener} from './DomListener'
 
 export class ExcelComponent extends DomListener {
-  name: string;
-  
   constructor(public $root: Dom, public options: IOptions = {}) {
     super($root, options.listeners)
     this.name = options.name || '';
@@ -15,11 +13,11 @@ export class ExcelComponent extends DomListener {
     return '';
   }
 
-  init() {
+  public init() {
     this.initDOMListeners();
   }
 
-  destroy() {
+  public destroy() {
     this.removeDOMListeners();
   }
 }
