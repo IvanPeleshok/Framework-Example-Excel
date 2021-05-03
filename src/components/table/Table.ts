@@ -25,7 +25,7 @@ export class Table extends ExcelComponent {
     });
   }
 
-  private stopResize = () => {
+  private stopResizing = () => {
     if (this.$resizer) {
       if (this.mode === PartTable.Column) {
         const width = this.coords.width + this.diff;
@@ -36,7 +36,7 @@ export class Table extends ExcelComponent {
         this.$resizer.css({opacity: 0, width: 'auto'});
       }
     }
-    this.$root.off('mouseup', this.stopResize);
+    this.$root.off('mouseup', this.stopResizing);
   }
 
   private setWidth = (ev: MouseEvent) =>  {
@@ -74,7 +74,7 @@ export class Table extends ExcelComponent {
           this.$root.on('mouseup', () => this.$root.off('mousemove', this.setHeight));
         }
 
-        this.$root.on('mouseup', this.stopResize);
+        this.$root.on('mouseup', this.stopResizing);
       }
     }
   }
