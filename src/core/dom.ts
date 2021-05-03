@@ -6,6 +6,10 @@ export class Dom {
     this.$el = typeof selector === 'string' ? document.querySelector(selector) : selector;
   }
 
+  get dataset() {
+    return this.$el.dataset;
+  }
+
   html(HTML: string): Dom {
     this.$el.innerHTML = HTML;
     return this;
@@ -16,11 +20,11 @@ export class Dom {
     return this;
   }
 
-  on(eventType: string, callback: () => void) {
+  on(eventType: string, callback: (ev: any) => void) {
     this.$el.addEventListener(eventType, callback);
   }
 
-  off(eventType: string, callback: () => void) {
+  off(eventType: string, callback: (ev: any) => void) {
     this.$el.removeEventListener(eventType, callback);
   }
 
@@ -41,9 +45,25 @@ export class Dom {
 
     return this;
   }
+
+  closest(selector: string){
+    return $(this.$el.closest(selector) as HTMLElement);
+  }
+
+  getCoords() {
+    return this.$el.getBoundingClientRect();
+  }
+
+  findAll(selector: string): NodeListOf<HTMLElement> {
+    return this.$el.querySelectorAll(selector);
+  }
+
+  css(styles: Object = {}) {
+    Object.keys(styles).forEach(key => this.$el.style[key] = styles[key])
+  }
 }
 
-export function $(selector: string) {
+export function $(selector: string | HTMLElement) {
   return new Dom(selector);
 }
 
