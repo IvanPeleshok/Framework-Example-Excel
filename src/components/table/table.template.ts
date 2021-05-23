@@ -3,11 +3,12 @@ enum CODES {
   Z = 90
 }
 
-
-function toCell(_, index) {
-  return `
-    <div class="cell" contenteditable data-column="${index}"></div>
-  `
+function toCell(row) {
+  return function(_, col) {
+    return `
+      <div class="cell" contenteditable data-column="${col}" data-id="${row+1}:${col+1}"></div>
+    `
+  }
 }
 
 function toColumn(col: string, index: number ) {
@@ -47,13 +48,13 @@ export function createTable(rowsCount: number = 15) {
 
   rows.push(createRow(null, cols))
 
-  for (let i = 0; i < rowsCount; i++) {
+  for (let row = 0; row < rowsCount; row++) {
     const cells = new Array(colsCount)
         .fill('')
-        .map(toCell)
+        .map(toCell(row))
         .join('')
 
-    rows.push(createRow(i + 1, cells))
+    rows.push(createRow(row + 1, cells))
   }
 
   return rows.join('')
