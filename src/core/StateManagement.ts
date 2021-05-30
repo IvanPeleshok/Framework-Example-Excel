@@ -1,8 +1,14 @@
-export function createState(rootReducer: (initialState, type) => typeof initialState, initialState) {
-    let state = rootReducer(initialState, {type: "__INIT___"});
+// interface IType {
+//     type: string,
+//     // [key: string]: any,
+// }
+
+export function createState<S>(rootReducer: (initialState: S, type) => S, initialState: S) {
+    let state = rootReducer(initialState, {type: "__INIT__"} as any);
     let listeners = [];
+
     return {
-        subscribe: (fn) => {
+        subscribe: (fn: () => void) => {
             listeners.push(fn);
             return {
                 unsubscribe: () => listeners.filter(listener => listener !== fn) 
@@ -22,11 +28,11 @@ export class CreateState {
     private state;
     private listeners = [];
 
-    constructor(private rootReducer: (initialState, type) => typeof initialState, initialState) {
+    constructor(private rootReducer, initialState) {
         this.state = rootReducer(initialState, {type: "__INIT__"});
     }
 
-    subscribe = (fn) => {
+    subscribe = (fn: (...args) => void) => {
         this.listeners.push(fn);
         return {
             unsubscribe: () => this.listeners.filter(listener => listener !== fn)
