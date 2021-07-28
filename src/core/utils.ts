@@ -32,3 +32,11 @@ export function nextSelector(key, {col, row}) {
 
   return `[data-id="${row > MIN_VALUE ? row : MIN_VALUE}:${col > MIN_VALUE ? col : MIN_VALUE}"]`;
 }
+
+export function storage<T>(key, data = null): T {
+  if (!data) {
+    return JSON.parse(localStorage.getItem(key));
+  }
+
+  localStorage.setItem(key, JSON.stringify(data));
+}

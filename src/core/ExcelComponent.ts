@@ -1,17 +1,21 @@
 import { IOptions } from '../interface/interface'
+import { StateT } from '../state/state';
 import { Dom } from './dom';
 import {DomListener} from './DomListener'
 import { Emitter } from './Emitter';
+import { createState } from './StateManagement';
 
 export class ExcelComponent extends DomListener {
   private emitter: Emitter;
   private unsubscribers = [];
+  state: StateT;
+  storeSub: any;
 
   constructor(public $root: Dom, public options: IOptions = {}) {
     super($root, options.listeners)
     this.name = options.name || '';
     this.emitter = options.emitter;
-
+    this.state = options.state;
     this.prepare();
   }
   
@@ -31,6 +35,14 @@ export class ExcelComponent extends DomListener {
     this.unsubscribers.push(unsub);
   }
 
+  $dispatch(action) {
+    this.state.dispatch(action);
+  }
+
+  $subscribe(fn: (...args) => void) {
+    this.storeSub = this.state.subscribe(fn);
+  }
+
   public init() {
     this.initDOMListeners();
   }
@@ -38,5 +50,6 @@ export class ExcelComponent extends DomListener {
   public destroy() {
     this.removeDOMListeners();
     this.unsubscribers.forEach(unsubscriber => unsubscriber());
+    this.storeSub.unsubscribe();
   }
 }

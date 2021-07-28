@@ -1,23 +1,26 @@
 import { $, Dom } from "../../core/dom";
 import { Emitter } from "../../core/Emitter";
 import { IOptions, TComponents, TComponent } from "../../interface/interface";
+import { StateT } from "../../state/state";
 
 export class Excel {
   $el: Dom;
   components: TComponent[];
   classComponents: TComponents;
   emitter: Emitter;
+  state: StateT;
 
   constructor(selector: string, options: IOptions) {
     this.$el = $(selector);
     this.components = options.components || [];
     this.emitter = new Emitter();
+    this.state = options.state;
   }
 
   getRoot() {
     const $root = $.create('div', 'excel');
 
-    const componentOptions: IOptions = { emitter: this.emitter };
+    const componentOptions: IOptions = { emitter: this.emitter, state: this.state };
 
     this.classComponents = this.components.map((Component: TComponent) => {
       const $el = $.create('div', Component.className);
