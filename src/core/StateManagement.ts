@@ -4,14 +4,14 @@
 // }
 
 export function createState<S>(rootReducer: (initialState: S, type) => S, initialState: S) {
-    let state = rootReducer(initialState, {type: "__INIT__"} as any);
-    let listeners = [];
+    let state = rootReducer(initialState, {type: "__INIT__"});
+    let listeners: Array<(state: S) => void> = [];
 
     return {
-        subscribe: (fn: () => void) => {
+        subscribe: (fn: (state: S) => void) => {
             listeners.push(fn);
             return {
-                unsubscribe: () => listeners.filter(listener => listener !== fn) 
+                unsubscribe: () => listeners.filter(listener => listener !== fn)  || []
             }
         },
 
@@ -24,18 +24,19 @@ export function createState<S>(rootReducer: (initialState: S, type) => S, initia
     }
 }
 
-export class CreateState {
-    private state;
+// implement class
+export class CreateState<S> {
+    private state: S;
     private listeners = [];
 
-    constructor(private rootReducer, initialState) {
+    constructor(private rootReducer: (initialState: S, type) => S, initialState: S) {
         this.state = rootReducer(initialState, {type: "__INIT__"});
     }
 
-    subscribe = (fn: (...args) => void) => {
+    subscribe = (fn: (state: S) => void) => {
         this.listeners.push(fn);
         return {
-            unsubscribe: () => this.listeners.filter(listener => listener !== fn)
+            unsubscribe: () => this.listeners.filter(listener => listener !== fn) 
         }
     }
 

@@ -1,5 +1,5 @@
 import { capitalize } from './utils';
-import { Domg } from './dom';
+import { Dom } from './dom';
 
 export class DomListener {
   name: string;
